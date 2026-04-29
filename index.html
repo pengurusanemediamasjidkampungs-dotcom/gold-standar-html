@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+    <title>PRO IDE | Gold Standard Workspace</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" href="assets/fonts/UniversalSans.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/glass.css">
+    <link rel="stylesheet" href="css/syntax.css">
+</head>
+<body>
+
+    <nav class="command-center">
+        <div class="brand-group">
+            <span class="logo">⚡ PRO IDE</span>
+            <span class="version-tag">v2.0 Gold</span>
+        </div>
+        
+        <div class="control-groups">
+            <div class="file-controls">
+                <button id="btn-new">New</button>
+                <button id="btn-save">Save</button>
+                <button id="btn-export">Export</button>
+            </div>
+            <div class="engine-controls">
+                <button id="btn-run" class="primary">Run Engine</button>
+                <button id="btn-stop">Stop</button>
+            </div>
+        </div>
+
+        <div class="user-settings">
+            <button id="btn-settings" aria-label="Settings">⚙️</button>
+        </div>
+    </nav>
+
+    <main class="workspace-grid">
+        
+        <aside class="activity-bar">
+            <div class="top-icons">
+                <button class="active" title="Explorer">📂</button>
+                <button title="Search">🔍</button>
+                <button title="Extensions">🧩</button>
+                <button title="Source Control">🌿</button>
+            </div>
+            <div class="bottom-icons">
+                <button title="Settings">⚙️</button>
+            </div>
+        </aside>
+
+        <section class="explorer-pane">
+            <header>EXPLORER</header>
+            <div class="project-root">PROJECT: STARTER-PACK</div>
+            <ul class="file-tree">
+                <li class="active">index.html</li>
+                <li>style.css</li>
+                <li>script.js</li>
+            </ul>
+        </section>
+
+        <section class="editor-stack">
+            <nav class="tab-system">
+                <div class="tab active">index.html</div>
+                <div class="tab">style.css</div>
+                <div class="tab">script.js</div>
+            </nav>
+            <div class="editor-surface">
+                <div class="line-numbers"></div>
+                <textarea id="code-editor" spellcheck="false" aria-label="Code Editor"></textarea>
+            </div>
+        </section>
+
+        <section class="preview-pane">
+            <header class="preview-header">
+                <span class="tab-label">Live Preview</span>
+                <div class="device-toggles">
+                    <button title="Mobile View">📱</button>
+                    <button title="Desktop View" class="active">💻</button>
+                </div>
+            </header>
+            <div class="iframe-wrapper">
+                <iframe id="live-frame" title="Code Output Preview" sandbox="allow-scripts"></iframe>
+            </div>
+            <footer class="console-drawer">
+                <div class="console-header">Console Output</div>
+                <div id="console-logs"></div>
+            </footer>
+        </section>
+
+    </main>
+
+    <footer class="status-bar">
+        <div class="left-metrics">
+            <span>Ln 1, Col 1</span>
+            <span>Spaces: 2</span>
+            <span>UTF-8</span>
+        </div>
+        <div class="right-metrics">
+            <span class="a11y-badge">WCAG 2.2 AA</span>
+            <span class="lang-tag">HTML/CSS/JS</span>
+            <span class="sync-status">● Synced</span>
+        </div>
+    </footer>
+
+    <script src="js/ui-effects.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/compiler.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
