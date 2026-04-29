@@ -1,0 +1,308 @@
+/**
+ * main.css - Gold Standard Modular IDE
+ * Architecture: CSS Grid Layout
+ * Aesthetic: Cyber-Minimalist / Apple-inspired
+ */
+
+/* --- 1. Design Tokens & Variables --- */
+:root {
+    /* Color Palette */
+    --color-bg-base: #000000;
+    --color-accent: #3e6ae1; /* Electric Blue */
+    --color-accent-glow: rgba(62, 106, 225, 0.4);
+    --color-text-primary: #ffffff;
+    --color-text-dim: #888888;
+    
+    /* Glassmorphism Surface Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(20px);
+    
+    /* Layout Dimensions */
+    --nav-height: 50px;
+    --status-height: 25px;
+    --activity-bar-width: 50px;
+    --explorer-width: 220px;
+    
+    /* Transitions */
+    --motion-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- 2. Global Reset & Typography --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Universal Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- 3. Command Center (Utility Navigation Bar) --- */
+.command-center {
+    height: var(--nav-height);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 100;
+}
+
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-accent-glow);
+}
+
+.version-tag {
+    font-size: 10px;
+    background: var(--glass-border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--color-text-dim);
+}
+
+.control-groups {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--color-text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--motion-fast);
+}
+
+button:hover {
+    background: var(--glass-border);
+    border-color: var(--color-text-dim);
+}
+
+button.primary {
+    background: var(--color-accent);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+button.primary:hover {
+    box-shadow: 0 0 15px var(--color-accent-glow);
+}
+
+/* --- 4. The Workspace (Modular Grid) --- */
+.workspace-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: var(--activity-bar-width) var(--explorer-width) 1fr 1fr;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+}
+
+/* A. Activity Bar */
+.activity-bar {
+    background: #050505;
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px 0;
+}
+
+.top-icons, .bottom-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.activity-bar button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+.activity-bar button.active {
+    opacity: 1;
+    border-left: 2px solid var(--color-accent);
+    border-radius: 0;
+}
+
+/* B. Explorer Pane */
+.explorer-pane {
+    background: #0a0a0a;
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.explorer-pane header {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-root {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.file-tree {
+    list-style: none;
+    font-size: 13px;
+    color: var(--color-text-dim);
+}
+
+.file-tree li {
+    padding: 6px 24px;
+    cursor: pointer;
+}
+
+.file-tree li.active {
+    background: var(--glass-bg);
+    color: var(--color-text-primary);
+}
+
+/* C. Editor Stack */
+.editor-stack {
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    border-right: 1px solid var(--glass-border);
+}
+
+.tab-system {
+    display: flex;
+    background: #050505;
+    height: 35px;
+}
+
+.tab {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--color-text-dim);
+    border-right: 1px solid var(--glass-border);
+    cursor: pointer;
+}
+
+.tab.active {
+    background: #000;
+    color: var(--color-text-primary);
+    border-top: 1px solid var(--color-accent);
+}
+
+.editor-surface {
+    flex-grow: 1;
+    display: flex;
+}
+
+textarea#code-editor {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    resize: none;
+    color: #a9b7c6; /* Dracula/Modern style text */
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 20px;
+    outline: none;
+}
+
+/* D. Preview Pane */
+.preview-pane {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.preview-header {
+    background: #0a0a0a;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.iframe-wrapper {
+    flex-grow: 1;
+    background: #fff;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Console Drawer */
+.console-drawer {
+    height: 150px;
+    background: #050505;
+    border-top: 1px solid var(--glass-border);
+    padding: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    overflow-y: auto;
+}
+
+/* --- 5. Status Bar --- */
+.status-bar {
+    height: var(--status-height);
+    background: var(--color-accent);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 10px;
+}
+
+.left-metrics, .right-metrics {
+    display: flex;
+    gap: 15px;
+}
+
+/* --- 6. Accessibility & Responsive --- */
+@media (max-width: 1024px) {
+    .workspace-grid {
+        grid-template-columns: var(--activity-bar-width) 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .explorer-pane { display: none; }
+}
+
+button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
