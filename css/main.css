@@ -1,5 +1,5 @@
 /**
- * main.css - Gold Standard Modular IDE
+ * main.css - Gold Standard Modular IDE (Version 2.1)
  * Architecture: CSS Grid Layout
  * Aesthetic: Cyber-Minimalist / Apple-inspired
  */
@@ -9,7 +9,8 @@
     /* Color Palette */
     --color-bg-base: #000000;
     --color-accent: #3e6ae1; /* Electric Blue */
-    --color-accent-glow: rgba(62, 106, 225, 0.4);
+    --color-accent-glow: rgba(62, 106, 225, 0.3);
+    --glass-bg-accent: rgba(62, 106, 225, 0.1);
     --color-text-primary: #ffffff;
     --color-text-dim: #888888;
     
@@ -49,8 +50,9 @@ body {
 /* --- 3. Command Center (Utility Navigation Bar) --- */
 .command-center {
     height: var(--nav-height);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
+    background: rgba(10, 10, 10, 0.7); /* Lebih gelap untuk kontras */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--glass-border);
     display: flex;
     justify-content: space-between;
@@ -105,10 +107,18 @@ button.primary {
     background: var(--color-accent);
     border-color: transparent;
     font-weight: 600;
+    position: relative;
+    overflow: hidden;
 }
 
 button.primary:hover {
     box-shadow: 0 0 15px var(--color-accent-glow);
+}
+
+/* Efek Pulse semasa klik Run Engine */
+button.primary:active {
+    animation: pulse-glow 0.5s infinite;
+    transform: scale(0.98);
 }
 
 /* --- 4. The Workspace (Modular Grid) --- */
@@ -183,10 +193,15 @@ button.primary:hover {
 .file-tree li {
     padding: 6px 24px;
     cursor: pointer;
+    transition: background var(--motion-fast);
+}
+
+.file-tree li:hover {
+    background: var(--glass-bg);
 }
 
 .file-tree li.active {
-    background: var(--glass-bg);
+    background: var(--glass-bg-accent);
     color: var(--color-text-primary);
 }
 
@@ -204,6 +219,7 @@ button.primary:hover {
     height: 35px;
 }
 
+/* Tab Interaktif */
 .tab {
     padding: 0 20px;
     display: flex;
@@ -212,12 +228,31 @@ button.primary:hover {
     color: var(--color-text-dim);
     border-right: 1px solid var(--glass-border);
     cursor: pointer;
+    position: relative;
+    transition: background var(--motion-fast), color var(--motion-fast);
+}
+
+.tab:hover {
+    background: var(--glass-bg);
+    color: var(--color-text-primary);
 }
 
 .tab.active {
     background: #000;
     color: var(--color-text-primary);
-    border-top: 1px solid var(--color-accent);
+    border-top: none; /* Buang border-top lama */
+}
+
+/* Indicator Line di bawah tab aktif */
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    box-shadow: 0 -2px 10px var(--color-accent-glow);
 }
 
 .editor-surface {
@@ -230,12 +265,14 @@ textarea#code-editor {
     background: transparent;
     border: none;
     resize: none;
-    color: #a9b7c6; /* Dracula/Modern style text */
+    color: #a9b7c6; 
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 14px;
     line-height: 1.6;
     padding: 20px;
     outline: none;
+    caret-color: var(--color-accent); /* Warna kursor berkelip */
+    selection-background-color: var(--glass-bg-accent);
 }
 
 /* D. Preview Pane */
@@ -252,6 +289,22 @@ textarea#code-editor {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--glass-border);
+}
+
+/* Responsive Toggles Style */
+.device-toggles button {
+    background: transparent;
+    border: none;
+    opacity: 0.5;
+    padding: 4px 8px;
+    font-size: 14px;
+    color: white;
+}
+
+.device-toggles button.active {
+    opacity: 1;
+    color: var(--color-accent);
+    text-shadow: 0 0 8px var(--color-accent-glow);
 }
 
 .iframe-wrapper {
@@ -274,6 +327,7 @@ iframe {
     font-family: monospace;
     font-size: 12px;
     overflow-y: auto;
+    color: #888;
 }
 
 /* --- 5. Status Bar --- */
@@ -305,4 +359,30 @@ iframe {
 button:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
+}
+
+/* --- 7. Custom Scrollbar (Cyber Look) --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+/* --- 8. Pulse Animation Logic --- */
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px var(--color-accent-glow); }
+    50% { box-shadow: 0 0 20px var(--color-accent-glow); }
+    100% { box-shadow: 0 0 5px var(--color-accent-glow); }
 }
